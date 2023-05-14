@@ -1,32 +1,30 @@
 name: project CICD pipeline
+
 on:
-   push:
-     branches:
-       - main
-       pull request:
-       branches:
-         - main
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-testing:
-runs-on: ubuntu-latest
-steps:
-- name: step-1 checkout code
-  uses: actions/checkout@v3
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: step-1 checkout code
+        uses: actions/checkout@v3
 
-  - name: step-2 install node
-  uses: actions/setup-node@v3
-  with:
-   node-version: 16
+      - name: step-2 install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
-   - name: step-3 install dependency
-     uses: npm ci
+      - name: step-3 install dependency
+        run: npm ci
 
-     - name: step-4 run prettier
-     uses: npx prettier --check .
+      - name: step-4 run prettier
+        run: npx prettier --check .
 
-     - name: step-5 run htmlHint
-     uses: npx htmlhint "**/*.html"
-
-
-
+      - name: step-5 run htmlHint
+        run: npx htmlhint "**/*.html"
